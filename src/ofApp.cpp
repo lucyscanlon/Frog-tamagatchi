@@ -10,11 +10,23 @@ void ofApp::setup(){
     
     tailReverseAnimation = false;
     
-    tadPoleOriginX = 600;
-    tadPoleOriginY = 450;
+    tadPoleOriginX = 650;
+    tadPoleOriginY = 500;
     
-    //load the font for the status bars
+    // load the font for the status bars
     secondFont.load("SecondFont.ttf", 30);
+    
+    // set the initial value of the variable which decreases the status bars
+    statusBarHeight = -38;
+    hungerStatusBarDecrease = -38;
+    cleanlinessStatusBarDecrease = -38;
+    loveStatusBarDecrease = -38;
+    
+    hungerPressed = 0;
+    cleanlinessPressed = 0;
+    lovePressed = 0;
+    
+   
     
 
 }
@@ -49,6 +61,7 @@ void ofApp::draw(){
     ofSetColor(255,0,255);     // set text color
     ofDrawBitmapString(pixelCoords, mouseX, mouseY);
     
+    calculateStatusBarHeight();
     drawTadpole();
     drawWaterGlass();
     drawStatusBars();
@@ -62,6 +75,21 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    
+    if(key == '1') {
+        hungerStatusBarDecrease = hungerStatusBarDecrease - 38;
+        hungerPressed++;
+    }
+    
+    if (key == '2') {
+        cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease - 38;
+        cleanlinessPressed++;
+    }
+    
+    if(key == '3') {
+        loveStatusBarDecrease = loveStatusBarDecrease - 38;
+        lovePressed++;
+    }
 
 }
 
@@ -230,8 +258,8 @@ void ofApp::drawTadpole() {
 }
 
 void ofApp::drawWaterGlass() {
-    waterGlassOriginX = 490;
-    waterGlassOriginY = 230;
+    waterGlassOriginX = 540;
+    waterGlassOriginY = 280;
     
     // water in the water glass
     ofSetColor(82, 212, 255, 70);
@@ -251,17 +279,17 @@ void ofApp::drawWaterGlass() {
 
 void ofApp::drawStatusBars() {
     statusBarsOriginX = 138;
-    statusBarsOriginY = 200;
+    statusBarsOriginY = 250;
     
     // draw the status bar colours
     ofSetColor(175, 159, 255, 100);
-    ofDrawRectangle(statusBarsOriginX, statusBarsOriginY, 60, 380);
+    ofDrawRectangle(statusBarsOriginX, statusBarsOriginY + 380, 60, (- 380 + hungerStatusBarDecrease));
     
     ofSetColor(126, 197, 134, 100);
-    ofDrawRectangle(statusBarsOriginX + 110, statusBarsOriginY, 60, 380);
+    ofDrawRectangle(statusBarsOriginX + 110, statusBarsOriginY + 380, 60, (- 380 + cleanlinessStatusBarDecrease));
     
     ofSetColor(255, 154, 203, 100);
-    ofDrawRectangle(statusBarsOriginX + 220, statusBarsOriginY, 60, 380);
+    ofDrawRectangle(statusBarsOriginX + 220, statusBarsOriginY + 380, 60, (- 380 + loveStatusBarDecrease));
     
     // draw the status bar outline
     ofSetColor(129, 62, 1, 60);
@@ -284,22 +312,41 @@ void ofApp::drawStatusBars() {
     // draw the text labels for the status bars
     ofSetColor(175, 159, 255);
     ofPushMatrix();
-    ofTranslate(182, 566);
+    ofTranslate(182, 616);
     ofRotateZ(270);
     secondFont.drawString("Hunger", 0, 0);
     ofPopMatrix();
     
     ofSetColor(126, 197, 134);
     ofPushMatrix();
-    ofTranslate(292, 566);
+    ofTranslate(292, 616);
     ofRotateZ(270);
     secondFont.drawString("Cleaniness", 0, 0);
     ofPopMatrix();
     
     ofSetColor(225, 137, 180);
     ofPushMatrix();
-    ofTranslate(402, 566);
+    ofTranslate(402, 616);
     ofRotateZ(270);
     secondFont.drawString("Love", 0, 0);
     ofPopMatrix();
+}
+
+void ofApp::calculateStatusBarHeight() {
+    
+    if ((ofGetFrameNum() % 300) == 0) {
+        if (statusBarHeight < (380 + (hungerPressed * 38))) {
+            hungerStatusBarDecrease = hungerStatusBarDecrease + 38;
+        }
+        
+        if (statusBarHeight < (380 + (cleanlinessPressed * 38))) {
+            cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease + 38;
+        }
+        
+        if (statusBarHeight < (380 + (lovePressed * 38))) {
+            loveStatusBarDecrease = loveStatusBarDecrease + 38;
+        }
+        
+        statusBarHeight = statusBarHeight + 38;
+    }
 }

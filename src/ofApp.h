@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
         void drawTadpole();
         void drawWaterGlass();
         void drawStatusBars();
+        void calculateStatusBarHeight();
     
         // Variables for the tadpole drawing
         float tadPoleOriginX;
@@ -38,8 +39,14 @@ class ofApp : public ofBaseApp{
         // Variables for the status bars
         float statusBarsOriginX;
         float statusBarsOriginY;
+        float statusBarHeight;
+        float hungerStatusBarDecrease;
+        float cleanlinessStatusBarDecrease;
+        float loveStatusBarDecrease;
+        float hungerPressed;
+        float cleanlinessPressed;
+        float lovePressed;
     
         ofTrueTypeFont secondFont;
-    
 		
 };
