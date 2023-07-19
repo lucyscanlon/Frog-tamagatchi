@@ -39,5 +39,7 @@ class ofApp : public ofBaseApp{
         float statusBarsOriginX;
         float statusBarsOriginY;
     
+        ofTrueTypeFont secondFont;
+    
 		
 };

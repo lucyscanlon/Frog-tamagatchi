@@ -13,6 +13,8 @@ void ofApp::setup(){
     tadPoleOriginX = 600;
     tadPoleOriginY = 450;
     
+    //load the font for the status bars
+    secondFont.load("SecondFont.ttf", 30);
     
 
 }
@@ -278,4 +280,26 @@ void ofApp::drawStatusBars() {
     ofDrawRectangle(statusBarsOriginX + 210, statusBarsOriginY - 10, 10, 400);
     ofDrawRectangle(statusBarsOriginX + 280, statusBarsOriginY - 10, 10, 400);
     
+    
+    // draw the text labels for the status bars
+    ofSetColor(175, 159, 255);
+    ofPushMatrix();
+    ofTranslate(182, 566);
+    ofRotateZ(270);
+    secondFont.drawString("Hunger", 0, 0);
+    ofPopMatrix();
+    
+    ofSetColor(126, 197, 134);
+    ofPushMatrix();
+    ofTranslate(292, 566);
+    ofRotateZ(270);
+    secondFont.drawString("Cleaniness", 0, 0);
+    ofPopMatrix();
+    
+    ofSetColor(225, 137, 180);
+    ofPushMatrix();
+    ofTranslate(402, 566);
+    ofRotateZ(270);
+    secondFont.drawString("Love", 0, 0);
+    ofPopMatrix();
 }
