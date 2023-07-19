@@ -4,8 +4,6 @@ using namespace std;
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    ofBackground(244, 217, 191);
-    
     // tadpole animation
     tadpoleAnimatedTailStage = 50;
     
@@ -61,6 +59,17 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    ofBackground(244, 217, 191);
+    
+    if ((hungerStatusBarHeight < 114) || (cleanlinessStatusBarHeight < 114) || (loveStatusBarHeight < 114)) {
+        ofSetColor(255, 104, 104, 50);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    }
+    
+    if ((hungerStatusBarHeight < 76) || (cleanlinessStatusBarHeight < 76) || (loveStatusBarHeight < 76)) {
+        ofSetColor(255, 104, 104, 70);
+        ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
+    }
     // Show mouse coordinates onto the screen
     string pixelCoords = "("+to_string(mouseX)+", "+to_string(mouseY)+")";
     ofSetColor(255,0,255);     // set text color
@@ -70,10 +79,9 @@ void ofApp::draw(){
     drawTadpole();
     drawWaterGlass();
     drawStatusBars();
+
     
-    //std::cout << tadpoleAnimatedTailStage  << std::endl;
-    
-    cout << cleanlinessStatusBarHeight << endl;
+    //cout << cleanlinessStatusBarHeight << endl;
  
 
 }
