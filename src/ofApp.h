@@ -46,6 +46,10 @@ class ofApp : public ofBaseApp{
         float hungerPressed;
         float cleanlinessPressed;
         float lovePressed;
+        float hungerStatusBarHeight;
+        float cleanlinessStatusBarHeight;
+        float loveStatusBarHeight;
+    
     
         ofTrueTypeFont secondFont;
 		

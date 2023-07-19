@@ -1,4 +1,5 @@
 #include "ofApp.h"
+using namespace std;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -25,6 +26,10 @@ void ofApp::setup(){
     hungerPressed = 0;
     cleanlinessPressed = 0;
     lovePressed = 0;
+    
+    hungerStatusBarHeight = 418;
+    cleanlinessStatusBarHeight = 418;
+    loveStatusBarHeight = 418;
     
    
     
@@ -68,7 +73,7 @@ void ofApp::draw(){
     
     //std::cout << tadpoleAnimatedTailStage  << std::endl;
     
-    
+    cout << cleanlinessStatusBarHeight << endl;
  
 
 }
@@ -78,17 +83,26 @@ void ofApp::keyPressed(int key){
     
     if(key == '1') {
         hungerStatusBarDecrease = hungerStatusBarDecrease - 38;
-        hungerPressed++;
+        if (hungerStatusBarHeight < 380) {
+            hungerPressed++;
+            hungerStatusBarHeight = hungerStatusBarHeight + 38;
+        }
     }
     
     if (key == '2') {
         cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease - 38;
-        cleanlinessPressed++;
+        if (cleanlinessStatusBarHeight < 380) {
+            cleanlinessPressed++;
+            cleanlinessStatusBarHeight = cleanlinessStatusBarHeight + 38;
+        }
     }
     
     if(key == '3') {
         loveStatusBarDecrease = loveStatusBarDecrease - 38;
-        lovePressed++;
+        if (loveStatusBarHeight < 380) {
+            lovePressed++;
+            loveStatusBarHeight = loveStatusBarHeight + 38;
+        }
     }
 
 }
@@ -283,13 +297,13 @@ void ofApp::drawStatusBars() {
     
     // draw the status bar colours
     ofSetColor(175, 159, 255, 100);
-    ofDrawRectangle(statusBarsOriginX, statusBarsOriginY + 380, 60, (- 380 + hungerStatusBarDecrease));
+    ofDrawRectangle(statusBarsOriginX, statusBarsOriginY + 380, 60, - hungerStatusBarHeight);
     
     ofSetColor(126, 197, 134, 100);
-    ofDrawRectangle(statusBarsOriginX + 110, statusBarsOriginY + 380, 60, (- 380 + cleanlinessStatusBarDecrease));
+    ofDrawRectangle(statusBarsOriginX + 110, statusBarsOriginY + 380, 60, - cleanlinessStatusBarHeight);
     
     ofSetColor(255, 154, 203, 100);
-    ofDrawRectangle(statusBarsOriginX + 220, statusBarsOriginY + 380, 60, (- 380 + loveStatusBarDecrease));
+    ofDrawRectangle(statusBarsOriginX + 220, statusBarsOriginY + 380, 60, - loveStatusBarHeight);
     
     // draw the status bar outline
     ofSetColor(129, 62, 1, 60);
@@ -334,17 +348,24 @@ void ofApp::drawStatusBars() {
 
 void ofApp::calculateStatusBarHeight() {
     
-    if ((ofGetFrameNum() % 300) == 0) {
+    // uses modulo to decrease the status bars over time
+    if ((ofGetFrameNum() % 200) == 0) {
+        // this makes sure the bars stop decreasing once they hit zero. it also uses
+        // the amount the user has pressed the button to increase the stautus bar.
         if (statusBarHeight < (380 + (hungerPressed * 38))) {
+            // decreases by 10% each time
             hungerStatusBarDecrease = hungerStatusBarDecrease + 38;
+            hungerStatusBarHeight = hungerStatusBarHeight - 38;
         }
         
         if (statusBarHeight < (380 + (cleanlinessPressed * 38))) {
             cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease + 38;
+            cleanlinessStatusBarHeight = cleanlinessStatusBarHeight - 38;
         }
         
         if (statusBarHeight < (380 + (lovePressed * 38))) {
             loveStatusBarDecrease = loveStatusBarDecrease + 38;
+            loveStatusBarHeight = loveStatusBarHeight - 38;
         }
         
         statusBarHeight = statusBarHeight + 38;
