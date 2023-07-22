@@ -26,6 +26,7 @@ class ofApp : public ofBaseApp{
         void drawStatusBars();
         void calculateStatusBarHeight();
         void calculateTadpoleSize();
+        void determineTadpoleColourFromHunger();
     
         // Variables for the tadpole drawing
         float tadPoleOriginX;
@@ -51,7 +52,9 @@ class ofApp : public ofBaseApp{
         float cleanlinessStatusBarHeight;
         float loveStatusBarHeight;
 
-    
+        // stores the light and dark green colour of the tadpole, this changes with the hunger level
+        ofColor tadpoleDarkColour;
+        ofColor tadpoleLightColour;
         // custom font
         ofTrueTypeFont secondFont;
     

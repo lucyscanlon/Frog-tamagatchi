@@ -64,13 +64,13 @@ void ofApp::draw(){
     
     // if the stats get too low add a red overlay to the screen to warn the player
     if ((hungerStatusBarHeight < 114) || (cleanlinessStatusBarHeight < 114) || (loveStatusBarHeight < 114)) {
-        ofSetColor(255, 104, 104, 50);
+        ofSetColor(255, 104, 104, 20);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
     
     // make the red screen even darker when one point away from end of game
     if ((hungerStatusBarHeight < 76) || (cleanlinessStatusBarHeight < 76) || (loveStatusBarHeight < 76)) {
-        ofSetColor(255, 104, 104, 60);
+        ofSetColor(255, 104, 104, 30);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
     // Show mouse coordinates onto the screen
@@ -171,8 +171,12 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 // class which draws the tadpole to the screen
 void ofApp::drawTadpole() {
     
+    determineTadpoleColourFromHunger();
     // dark green colour of tadpole
-    ofSetColor(138, 191, 73);
+    // fade the tadpole away if its hungry
+    
+    ofSetColor(tadpoleDarkColour);
+    // draw tadpoles body
     ofDrawRectangle(tadPoleOriginX, tadPoleOriginY - 60, 20, 120);
     ofDrawRectangle(tadPoleOriginX - 20, tadPoleOriginY - 60, 20, 120);
     ofDrawRectangle(tadPoleOriginX + 20, tadPoleOriginY - 60, 20, 120);
@@ -254,13 +258,14 @@ void ofApp::drawTadpole() {
     if (tadpoleAnimatedTailStage < 100 ) {
         // stage one of tail
         // dark green colour of the tadpoles tail
-        ofSetColor(138, 191, 73);
+        ofSetColor(tadpoleDarkColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 20, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY, 40, 20);
         ofDrawRectangle(tadPoleOriginX + 140, tadPoleOriginY + 20, 20, 20);
         
         // light green colour of tadpole
-        ofSetColor(172, 211, 148);
+        // light green colour of tadpole
+        ofSetColor(tadpoleLightColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 40, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 20, 40, 20);
@@ -271,13 +276,14 @@ void ofApp::drawTadpole() {
     } else if ((tadpoleAnimatedTailStage > 100) && (tadpoleAnimatedTailStage < 200)) {
         // stage two of tail
         // dark green of tail
-        ofSetColor(138, 191, 73);
+        ofSetColor(tadpoleDarkColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 20, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 20, 40, 20);
         ofDrawRectangle(tadPoleOriginX + 140, tadPoleOriginY, 20, 20);
         
         // light green colour of tadpole
-        ofSetColor(172, 211, 148);
+        // light green colour of tadpole
+        ofSetColor(tadpoleLightColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 40, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 40, 40, 20);
@@ -288,13 +294,13 @@ void ofApp::drawTadpole() {
     } else if ((tadpoleAnimatedTailStage > 200) && (tadpoleAnimatedTailStage < 300)) {
         // stage three of tail
         // dark green of tail
-        ofSetColor(138, 191, 73);
+        ofSetColor(tadpoleDarkColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 20, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 20, 40, 20);
         ofDrawRectangle(tadPoleOriginX + 140, tadPoleOriginY - 20, 20, 20);
         
         // light green colour of tadpole
-        ofSetColor(172, 211, 148);
+        ofSetColor(tadpoleLightColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 40, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 40, 40, 20);
@@ -305,13 +311,14 @@ void ofApp::drawTadpole() {
     } else if ((tadpoleAnimatedTailStage > 300) && (tadpoleAnimatedTailStage < 400)) {
         // stage four of tail
         // dark green of tail
-        ofSetColor(138, 191, 73);
+        ofSetColor(tadpoleDarkColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 20, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 20, 40, 20);
         ofDrawRectangle(tadPoleOriginX + 140, tadPoleOriginY - 40, 20, 20);
         
         // light green colour of tadpole
-        ofSetColor(172, 211, 148);
+        // light green colour of tadpole
+        ofSetColor(tadpoleLightColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 40, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 40, 40, 20);
@@ -322,13 +329,14 @@ void ofApp::drawTadpole() {
     } else if (tadpoleAnimatedTailStage > 400) {
         // stage five of tail
         // dark green of tail
-        ofSetColor(138, 191, 73);
+        ofSetColor(tadpoleDarkColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 20, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 40, 40, 20);
         ofDrawRectangle(tadPoleOriginX + 140, tadPoleOriginY - 60, 20, 20);
         
         // light green colour of tadpole
-        ofSetColor(172, 211, 148);
+        // light green colour of tadpole
+        ofSetColor(tadpoleLightColour);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY - 40, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 80, tadPoleOriginY, 20, 20);
         ofDrawRectangle(tadPoleOriginX + 100, tadPoleOriginY - 60, 40, 20);
@@ -485,4 +493,41 @@ void ofApp::calculateStatusBarHeight() {
         
         statusBarHeight = statusBarHeight + 38;
     }
+}
+
+void ofApp::determineTadpoleColourFromHunger() {
+    
+    // fade out the colour of the tadpole as it gets hungry
+    // set the rgb values of each colour as this wont be changed by the hunger level decreasing
+    tadpoleDarkColour.r = 138;
+    tadpoleDarkColour.g = 191;
+    tadpoleDarkColour.b = 73;
+    
+    tadpoleLightColour.r = 172;
+    tadpoleLightColour.g = 211;
+    tadpoleLightColour.b = 148;
+    
+    // this changes the alpha channel of the colour based on the hunger level
+    if((hungerStatusBarHeight < 420) && (hungerStatusBarHeight > 286)) {
+        tadpoleDarkColour.a = 255;
+    } else if ((hungerStatusBarHeight < 286) && (hungerStatusBarHeight > 210)) {
+        tadpoleDarkColour.a = 180;
+    } else if ((hungerStatusBarHeight < 210) && (hungerStatusBarHeight > 96)) {
+        tadpoleDarkColour.a = 120;
+    } else if ((hungerStatusBarHeight < 96) && (hungerStatusBarHeight > 10)) {
+        tadpoleDarkColour.a = 80;
+    }
+    
+    // this changes the alpha channel of the colour based on the hunger level
+    if((hungerStatusBarHeight < 420) && (hungerStatusBarHeight > 286)) {
+        tadpoleLightColour.a = 255;
+    } else if ((hungerStatusBarHeight < 286) && (hungerStatusBarHeight > 210)) {
+        tadpoleLightColour.a = 180;
+    } else if ((hungerStatusBarHeight < 210) && (hungerStatusBarHeight > 96)) {
+        tadpoleLightColour.a = 120;
+    } else if ((hungerStatusBarHeight < 96) && (hungerStatusBarHeight > 10)) {
+        tadpoleLightColour.a = 80;
+    }
+    
+    
 }
