@@ -28,6 +28,7 @@ void ofApp::setup(){
     hungerStatusBarHeight = 418;
     cleanlinessStatusBarHeight = 418;
     loveStatusBarHeight = 418;
+
     
    
     
@@ -61,13 +62,15 @@ void ofApp::draw(){
     
     ofBackground(244, 217, 191);
     
+    // if the stats get too low add a red overlay to the screen to warn the player
     if ((hungerStatusBarHeight < 114) || (cleanlinessStatusBarHeight < 114) || (loveStatusBarHeight < 114)) {
         ofSetColor(255, 104, 104, 50);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
     
+    // make the red screen even darker when one point away from end of game
     if ((hungerStatusBarHeight < 76) || (cleanlinessStatusBarHeight < 76) || (loveStatusBarHeight < 76)) {
-        ofSetColor(255, 104, 104, 70);
+        ofSetColor(255, 104, 104, 60);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
     // Show mouse coordinates onto the screen
@@ -179,14 +182,72 @@ void ofApp::drawTadpole() {
     
     
     
-    // tadpole face and eyes
-    ofSetColor(72, 72, 72);
-    ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
-    ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
-    ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
-    ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
-    ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
-    ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
+    // tadpole face
+    // changes depending on the love status
+    // display the face for love status of 8-7
+    if ((loveStatusBarHeight < 400) && (loveStatusBarHeight > 286)) {
+        ofSetColor(72, 72, 72);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
+        
+        // blush of the cheeks
+        ofSetColor(251, 145, 147);
+        ofDrawRectangle(tadPoleOriginX + 35,tadPoleOriginY - 5, 12, 12);
+        ofDrawRectangle(tadPoleOriginX - 35,tadPoleOriginY - 5, 12, 12);
+        
+        // white glint in the eye
+        ofSetColor(255, 255, 255, 200);
+        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+        
+    } else if ((loveStatusBarHeight < 286) && (loveStatusBarHeight > 210)) {
+        // displays face of the tadpole when happy
+        ofSetColor(72, 72, 72);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
+        
+        // white glint in the eye
+        ofSetColor(255, 255, 255, 200);
+        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+    } else if ((loveStatusBarHeight < 210) && (loveStatusBarHeight > 96)) {
+        // displays the face when in normal state
+        ofSetColor(72, 72, 72);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 15,tadPoleOriginY + 20, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 20,tadPoleOriginY + 20, 15, 15);
+        
+        // white glint in the eye
+        ofSetColor(255, 255, 255, 200);
+        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+    } else if ((loveStatusBarHeight < 96) && (loveStatusBarHeight > 0)) {
+        // draw the tadpole if almost dead
+        ofSetColor(72, 72, 72);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 10, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 10, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 18, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 18, 15, 15);
+        
+        // white glint in the eye
+        ofSetColor(255, 255, 255, 200);
+        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+    }
+    
     
     // tail of tadpole
     
