@@ -27,6 +27,7 @@ class ofApp : public ofBaseApp{
         void calculateStatusBarHeight();
         void calculateTadpoleSize();
         void determineTadpoleColourFromHunger();
+        void drawLifeSpanBar();
     
         // Variables for the tadpole drawing
         float tadPoleOriginX;
@@ -57,6 +58,12 @@ class ofApp : public ofBaseApp{
         ofColor tadpoleLightColour;
         // custom font
         ofTrueTypeFont secondFont;
+    
+        // variable that controls the length of the lifespan bar
+        float lifespanBarLength;
+    
+        // variable to control if the tadpole is dead or alive
+        bool isTadpoleDead;
     
 		
 };

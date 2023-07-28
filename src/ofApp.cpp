@@ -29,7 +29,9 @@ void ofApp::setup(){
     cleanlinessStatusBarHeight = 418;
     loveStatusBarHeight = 418;
 
+    lifespanBarLength = 0;
     
+    isTadpoleDead = false;
    
     
 
@@ -51,6 +53,14 @@ void ofApp::update(){
     } else if (tadpoleAnimatedTailStage == 50) {
         tailReverseAnimation = false;
 
+    }
+    
+    
+    // increase the lifepan bar as time increases
+    if (lifespanBarLength < 600) {
+        if ((ofGetFrameNum() % 100) == 0) {
+            lifespanBarLength = lifespanBarLength + 20;
+        }
     }
     
  
@@ -79,9 +89,15 @@ void ofApp::draw(){
     ofDrawBitmapString(pixelCoords, mouseX, mouseY);
     
     calculateStatusBarHeight();
-    drawTadpole();
-    drawWaterGlass();
-    drawStatusBars();
+    
+    // if the tadpole is alive 
+    if(isTadpoleDead == false) {
+        drawTadpole();
+        drawWaterGlass();
+        drawStatusBars();
+        drawLifeSpanBar();
+    }
+    
 
     
     //cout << cleanlinessStatusBarHeight << endl;
@@ -472,7 +488,7 @@ void ofApp::drawStatusBars() {
 void ofApp::calculateStatusBarHeight() {
     
     // uses modulo to decrease the status bars over time
-    if ((ofGetFrameNum() % 200) == 0) {
+    if ((ofGetFrameNum() % 100) == 0) {
         // this makes sure the bars stop decreasing once they hit zero. it also uses
         // the amount the user has pressed the button to increase the stautus bar.
         if (statusBarHeight < (380 + (hungerPressed * 38))) {
@@ -529,5 +545,22 @@ void ofApp::determineTadpoleColourFromHunger() {
         tadpoleLightColour.a = 80;
     }
     
+    
+}
+
+void ofApp::drawLifeSpanBar() {
+    // the function to draw the lifespan of the tadpole/frog
+    ofSetColor(255, 239, 160, 150);
+    ofDrawRectangle(190, 80, lifespanBarLength, 60);
+    
+    // draw the border around the life span bar
+    ofSetColor(129, 62, 1, 60);
+    ofDrawRectangle(190, 70, 600, 10);
+    ofDrawRectangle(190, 140, 600, 10);
+    ofDrawRectangle(180, 70, 10, 80);
+    ofDrawRectangle(790, 70, 10, 80);
+    
+    ofSetColor(224, 179, 141);
+    secondFont.drawString("Lifespan", 205, 125);
     
 }
