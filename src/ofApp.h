@@ -30,6 +30,7 @@ class ofApp : public ofBaseApp{
         void drawLifeSpanBar();
         void checkifTadpoleIsDead();
         void drawDeadText();
+        void drawOpenScreenOfGame();
     
         // Variables for the tadpole drawing
         float tadPoleOriginX;
@@ -70,5 +71,7 @@ class ofApp : public ofBaseApp{
         bool isTadpoleDead;
         int daysLived;
     
-		
+        int stageOfGame;
+    
+        
 };

@@ -27,16 +27,17 @@ void ofApp::setup(){
     cleanlinessPressed = 0;
     lovePressed = 0;
     
-    hungerStatusBarHeight = 418;
-    cleanlinessStatusBarHeight = 418;
-    loveStatusBarHeight = 418;
+    hungerStatusBarHeight = 380;
+    cleanlinessStatusBarHeight = 380;
+    loveStatusBarHeight = 380;
 
     lifespanBarLength = 0;
     
-    isTadpoleDead = true;
+    isTadpoleDead = false;
     
     daysLived = 0;
    
+    stageOfGame = 0;
     
 
 }
@@ -44,39 +45,41 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    if(isTadpoleDead == false) {
-        // animates the tadpole tale
-        if (tailReverseAnimation == true) {
-            tadpoleAnimatedTailStage = tadpoleAnimatedTailStage - 2;
-            tadPoleOriginY = tadPoleOriginY - 0.09;
-        } else if (tailReverseAnimation == false) {
-            tadpoleAnimatedTailStage = tadpoleAnimatedTailStage + 2;
-            tadPoleOriginY = tadPoleOriginY + 0.09;
-        }
-        
-        
-        // reverses the tadpole tail animation
-        if (tadpoleAnimatedTailStage == 450) {
-            tailReverseAnimation = true;
-        } else if (tadpoleAnimatedTailStage == 50) {
-            tailReverseAnimation = false;
+    
+    if (stageOfGame == 1) {
+        if(isTadpoleDead == false) {
+            // animates the tadpole tale
+            if (tailReverseAnimation == true) {
+                tadpoleAnimatedTailStage = tadpoleAnimatedTailStage - 2;
+                tadPoleOriginY = tadPoleOriginY - 0.09;
+            } else if (tailReverseAnimation == false) {
+                tadpoleAnimatedTailStage = tadpoleAnimatedTailStage + 2;
+                tadPoleOriginY = tadPoleOriginY + 0.09;
+            }
             
+            
+            // reverses the tadpole tail animation
+            if (tadpoleAnimatedTailStage == 450) {
+                tailReverseAnimation = true;
+            } else if (tadpoleAnimatedTailStage == 50) {
+                tailReverseAnimation = false;
+                
+            }
         }
-    }
-    
-    
-    // increase the lifespan bar as time increases
-    if (isTadpoleDead == false) {
-        if (lifespanBarLength < 600) {
-           if ((ofGetFrameNum() % 100) == 0) {
-               lifespanBarLength = lifespanBarLength + 20;
-               daysLived = lifespanBarLength / 20;
+        
+        
+        // increase the lifespan bar as time increases
+        if (isTadpoleDead == false) {
+            if (lifespanBarLength < 600) {
+               if ((ofGetFrameNum() % 100) == 0) {
+                   lifespanBarLength = lifespanBarLength + 20;
+                   daysLived = lifespanBarLength / 20;
+               }
            }
-       }
+        }
+        checkifTadpoleIsDead();
     }
-     
     
-    checkifTadpoleIsDead();
     
  
 
@@ -103,24 +106,24 @@ void ofApp::draw(){
     ofSetColor(255,0,255);     // set text color
     ofDrawBitmapString(pixelCoords, mouseX, mouseY);
     
-    calculateStatusBarHeight();
-    
-    // if the tadpole is alive
-    if(isTadpoleDead == false) {
-        drawStatusBars();
-    } else {
-        // if the tadpole is dead
-        drawDeadText();
+    // if the game is at stage one, display the tadpole game
+    if (stageOfGame == 0) {
+        drawOpenScreenOfGame();
+    } else if (stageOfGame == 1) {
+        calculateStatusBarHeight();
+        
+        // if the tadpole is alive
+        if(isTadpoleDead == false) {
+            drawStatusBars();
+        } else {
+            // if the tadpole is dead
+            drawDeadText();
+        }
+        
+        drawLifeSpanBar();
+        drawTadpole();
+        drawWaterGlass();
     }
-    
-    drawLifeSpanBar();
-    drawTadpole();
-    drawWaterGlass();
-    
-
-    
-    cout << isTadpoleDead << endl;
-    cout << hungerStatusBarHeight << endl;
  
 
 }
@@ -128,29 +131,38 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
-    if(key == '1') {
-        hungerStatusBarDecrease = hungerStatusBarDecrease - 38;
-        if (hungerStatusBarHeight < 380) {
-            hungerPressed++;
-            hungerStatusBarHeight = hungerStatusBarHeight + 38;
+    cout << key << endl;
+    if(stageOfGame == 0) {
+        if(key == 13) {
+            stageOfGame = 1;
+        }
+        
+    } else if (stageOfGame == 1) {
+        if(key == '1') {
+            hungerStatusBarDecrease = hungerStatusBarDecrease - 38;
+            if (hungerStatusBarHeight < 380) {
+                hungerPressed++;
+                hungerStatusBarHeight = hungerStatusBarHeight + 38;
+            }
+        }
+        
+        if (key == '2') {
+            cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease - 38;
+            if (cleanlinessStatusBarHeight < 380) {
+                cleanlinessPressed++;
+                cleanlinessStatusBarHeight = cleanlinessStatusBarHeight + 38;
+            }
+        }
+        
+        if(key == '3') {
+            loveStatusBarDecrease = loveStatusBarDecrease - 38;
+            if (loveStatusBarHeight < 380) {
+                lovePressed++;
+                loveStatusBarHeight = loveStatusBarHeight + 38;
+            }
         }
     }
     
-    if (key == '2') {
-        cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease - 38;
-        if (cleanlinessStatusBarHeight < 380) {
-            cleanlinessPressed++;
-            cleanlinessStatusBarHeight = cleanlinessStatusBarHeight + 38;
-        }
-    }
-    
-    if(key == '3') {
-        loveStatusBarDecrease = loveStatusBarDecrease - 38;
-        if (loveStatusBarHeight < 380) {
-            lovePressed++;
-            loveStatusBarHeight = loveStatusBarHeight + 38;
-        }
-    }
 
 }
 
@@ -641,6 +653,26 @@ void ofApp::drawDeadText() {
     smallestFont.drawString("and it has died", 190, 400);
     
     
-    smallestFont.drawString("Your tadpole lived for: ", 155, 480);
+    smallestFont.drawString("Your tadpole lived for: ", 145, 480);
     smallerFont.drawString(numberOfDaysLived + " days", 200, 540);
+}
+
+void ofApp::drawOpenScreenOfGame() {
+    ofSetColor(138, 191, 73, 200);
+    secondFont.drawString("Welcome to Tadpole", 230, 150);
+    secondFont.drawString("Tamagotchi", 340, 200);
+    
+    ofSetColor(53, 53, 53, 150);
+    smallestFont.drawString("We need your help! The local pond has become", 250, 270);
+    smallestFont.drawString("overgrown with tadpoles. We are giving a tadpole", 225, 295);
+    smallestFont.drawString("to each person in town to look after. Once they grow", 210, 320);
+    smallestFont.drawString("and become frogs they can be transported to the", 235, 345);
+    smallestFont.drawString("new pond across town.", 370, 370);
+    
+    smallestFont.drawString("Tadpoles need lots of love and care to stay alive.", 230, 425);
+    smallestFont.drawString("They also need to be fed and their water needs", 250, 450);
+    smallestFont.drawString("to be clean. Best of luck!", 350, 475);
+    
+    ofSetColor(138, 191, 73, 200);
+    smallerFont.drawString("Press enter to start", 285, 610);
 }
