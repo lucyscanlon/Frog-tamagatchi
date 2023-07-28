@@ -40,28 +40,38 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    if (tailReverseAnimation == true) {
-        tadpoleAnimatedTailStage = tadpoleAnimatedTailStage - 2;
-        tadPoleOriginY = tadPoleOriginY - 0.09;
-    } else if (tailReverseAnimation == false) {
-        tadpoleAnimatedTailStage = tadpoleAnimatedTailStage + 2;
-        tadPoleOriginY = tadPoleOriginY + 0.09;
-    }
-    
-    if (tadpoleAnimatedTailStage == 450) {
-        tailReverseAnimation = true;
-    } else if (tadpoleAnimatedTailStage == 50) {
-        tailReverseAnimation = false;
-
-    }
-    
-    
-    // increase the lifepan bar as time increases
-    if (lifespanBarLength < 600) {
-        if ((ofGetFrameNum() % 100) == 0) {
-            lifespanBarLength = lifespanBarLength + 20;
+    if(isTadpoleDead == false) {
+        // animates the tadpole tale
+        if (tailReverseAnimation == true) {
+            tadpoleAnimatedTailStage = tadpoleAnimatedTailStage - 2;
+            tadPoleOriginY = tadPoleOriginY - 0.09;
+        } else if (tailReverseAnimation == false) {
+            tadpoleAnimatedTailStage = tadpoleAnimatedTailStage + 2;
+            tadPoleOriginY = tadPoleOriginY + 0.09;
+        }
+        
+        
+        // reverses the tadpole tail animation
+        if (tadpoleAnimatedTailStage == 450) {
+            tailReverseAnimation = true;
+        } else if (tadpoleAnimatedTailStage == 50) {
+            tailReverseAnimation = false;
+            
         }
     }
+    
+    
+    // increase the lifespan bar as time increases
+    if (isTadpoleDead == false) {
+        if (lifespanBarLength < 600) {
+           if ((ofGetFrameNum() % 100) == 0) {
+               lifespanBarLength = lifespanBarLength + 20;
+           }
+       }
+    }
+     
+    
+    checkifTadpoleIsDead();
     
  
 
@@ -90,17 +100,19 @@ void ofApp::draw(){
     
     calculateStatusBarHeight();
     
-    // if the tadpole is alive 
+    // if the tadpole is alive
     if(isTadpoleDead == false) {
-        drawTadpole();
-        drawWaterGlass();
         drawStatusBars();
-        drawLifeSpanBar();
     }
+    
+    drawLifeSpanBar();
+    drawTadpole();
+    drawWaterGlass();
     
 
     
-    //cout << cleanlinessStatusBarHeight << endl;
+    cout << isTadpoleDead << endl;
+    cout << hungerStatusBarHeight << endl;
  
 
 }
@@ -205,68 +217,94 @@ void ofApp::drawTadpole() {
     // tadpole face
     // changes depending on the love status
     // display the face for love status of 8-7
-    if ((loveStatusBarHeight < 400) && (loveStatusBarHeight > 286)) {
+    
+    if(isTadpoleDead == false) {
+        if ((loveStatusBarHeight < 400) && (loveStatusBarHeight > 286)) {
+            ofSetColor(72, 72, 72);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
+            
+            // blush of the cheeks
+            ofSetColor(251, 145, 147);
+            ofDrawRectangle(tadPoleOriginX + 35,tadPoleOriginY - 5, 12, 12);
+            ofDrawRectangle(tadPoleOriginX - 35,tadPoleOriginY - 5, 12, 12);
+            
+            // white glint in the eye
+            ofSetColor(255, 255, 255, 200);
+            ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+            ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+            
+        } else if ((loveStatusBarHeight < 286) && (loveStatusBarHeight > 210)) {
+            // displays face of the tadpole when happy
+            ofSetColor(72, 72, 72);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
+            
+            // white glint in the eye
+            ofSetColor(255, 255, 255, 200);
+            ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+            ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+        } else if ((loveStatusBarHeight < 210) && (loveStatusBarHeight > 96)) {
+            // displays the face when in normal state
+            ofSetColor(72, 72, 72);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 15,tadPoleOriginY + 20, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 20,tadPoleOriginY + 20, 15, 15);
+            
+            // white glint in the eye
+            ofSetColor(255, 255, 255, 200);
+            ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+            ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+        } else if ((loveStatusBarHeight < 96) && (loveStatusBarHeight > 0)) {
+            // draw the tadpole if almost dead
+            ofSetColor(72, 72, 72);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 10, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 10, 15, 15);
+            ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 18, 15, 15);
+            ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 18, 15, 15);
+            
+            // white glint in the eye
+            ofSetColor(255, 255, 255, 200);
+            ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
+            ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
+        }
+    } else {
+        // draw the tadpoles face if its dead
         ofSetColor(72, 72, 72);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
+        // right eye - X eye
+        ofDrawRectangle(tadPoleOriginX + 20, tadPoleOriginY - 20, 5, 5);
+        ofDrawRectangle(tadPoleOriginX + 25, tadPoleOriginY - 25, 5, 5);
+        ofDrawRectangle(tadPoleOriginX + 25, tadPoleOriginY - 15, 5, 5);
+        ofDrawRectangle(tadPoleOriginX + 15, tadPoleOriginY - 25, 5, 5);
+        ofDrawRectangle(tadPoleOriginX + 15, tadPoleOriginY - 15, 5, 5);
         
-        // blush of the cheeks
-        ofSetColor(251, 145, 147);
-        ofDrawRectangle(tadPoleOriginX + 35,tadPoleOriginY - 5, 12, 12);
-        ofDrawRectangle(tadPoleOriginX - 35,tadPoleOriginY - 5, 12, 12);
+        // left eye - X eye
+        ofDrawRectangle(tadPoleOriginX - 25, tadPoleOriginY - 20, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 30, tadPoleOriginY - 25, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 30, tadPoleOriginY - 15, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 20, tadPoleOriginY - 25, 5, 5);
+        ofDrawRectangle(tadPoleOriginX - 20, tadPoleOriginY - 15, 5, 5);
         
-        // white glint in the eye
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
-        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
-        
-    } else if ((loveStatusBarHeight < 286) && (loveStatusBarHeight > 210)) {
-        // displays face of the tadpole when happy
-        ofSetColor(72, 72, 72);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 12, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 12, 15, 15);
-        
-        // white glint in the eye
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
-        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
-    } else if ((loveStatusBarHeight < 210) && (loveStatusBarHeight > 96)) {
-        // displays the face when in normal state
-        ofSetColor(72, 72, 72);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 15,tadPoleOriginY + 20, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 20,tadPoleOriginY + 20, 15, 15);
-        
-        // white glint in the eye
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
-        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
-    } else if ((loveStatusBarHeight < 96) && (loveStatusBarHeight > 0)) {
-        // draw the tadpole if almost dead
-        ofSetColor(72, 72, 72);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY - 25, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 30,tadPoleOriginY - 25, 15, 15);
         ofDrawRectangle(tadPoleOriginX - 10,tadPoleOriginY + 10, 15, 15);
         ofDrawRectangle(tadPoleOriginX + 5,tadPoleOriginY + 10, 15, 15);
-        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 18, 15, 15);
-        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 18, 15, 15);
+        ofDrawRectangle(tadPoleOriginX + 20,tadPoleOriginY + 10, 15, 15);
+        ofDrawRectangle(tadPoleOriginX - 25,tadPoleOriginY + 10, 15, 15);
         
-        // white glint in the eye
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(tadPoleOriginX + 22,tadPoleOriginY - 23, 5, 5);
-        ofDrawRectangle(tadPoleOriginX - 28,tadPoleOriginY - 23, 5, 5);
     }
+    
     
     
     // tail of tadpole
@@ -409,7 +447,7 @@ void ofApp::drawWaterGlass() {
         ofSetColor(255, 255, 255, 200);
         ofDrawRectangle(waterGlassOriginX + 300, waterGlassOriginY + 40, 10, 110);
         ofDrawRectangle(waterGlassOriginX + 40, waterGlassOriginY + 250, 10, 70);
-    } else if ((cleanlinessStatusBarHeight < 96) && (cleanlinessStatusBarHeight > 10)) {
+    } else if (cleanlinessStatusBarHeight < 96) {
         // water in the water glass
         ofSetColor(82, 212, 255, 70);
         ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
@@ -488,27 +526,30 @@ void ofApp::drawStatusBars() {
 void ofApp::calculateStatusBarHeight() {
     
     // uses modulo to decrease the status bars over time
-    if ((ofGetFrameNum() % 100) == 0) {
-        // this makes sure the bars stop decreasing once they hit zero. it also uses
-        // the amount the user has pressed the button to increase the stautus bar.
-        if (statusBarHeight < (380 + (hungerPressed * 38))) {
-            // decreases by 10% each time
-            hungerStatusBarDecrease = hungerStatusBarDecrease + 38;
-            hungerStatusBarHeight = hungerStatusBarHeight - 38;
+    if(isTadpoleDead == false) {
+        if ((ofGetFrameNum() % 100) == 0) {
+            // this makes sure the bars stop decreasing once they hit zero. it also uses
+            // the amount the user has pressed the button to increase the stautus bar.
+            if (statusBarHeight < (380 + (hungerPressed * 38))) {
+                // decreases by 10% each time
+                hungerStatusBarDecrease = hungerStatusBarDecrease + 38;
+                hungerStatusBarHeight = hungerStatusBarHeight - 38;
+            }
+            
+            if (statusBarHeight < (380 + (cleanlinessPressed * 38))) {
+                cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease + 38;
+                cleanlinessStatusBarHeight = cleanlinessStatusBarHeight - 38;
+            }
+            
+            if (statusBarHeight < (380 + (lovePressed * 38))) {
+                loveStatusBarDecrease = loveStatusBarDecrease + 38;
+                loveStatusBarHeight = loveStatusBarHeight - 38;
+            }
+            
+            statusBarHeight = statusBarHeight + 38;
         }
-        
-        if (statusBarHeight < (380 + (cleanlinessPressed * 38))) {
-            cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease + 38;
-            cleanlinessStatusBarHeight = cleanlinessStatusBarHeight - 38;
-        }
-        
-        if (statusBarHeight < (380 + (lovePressed * 38))) {
-            loveStatusBarDecrease = loveStatusBarDecrease + 38;
-            loveStatusBarHeight = loveStatusBarHeight - 38;
-        }
-        
-        statusBarHeight = statusBarHeight + 38;
     }
+    
 }
 
 void ofApp::determineTadpoleColourFromHunger() {
@@ -563,4 +604,18 @@ void ofApp::drawLifeSpanBar() {
     ofSetColor(224, 179, 141);
     secondFont.drawString("Lifespan", 205, 125);
     
+}
+
+void ofApp::checkifTadpoleIsDead() {
+    if (cleanlinessStatusBarHeight == 0) {
+        isTadpoleDead = true;
+    }
+    
+    if (hungerStatusBarHeight == 0) {
+        isTadpoleDead = true;
+    }
+    
+    if (loveStatusBarHeight == 0) {
+        isTadpoleDead = true;
+    }
 }

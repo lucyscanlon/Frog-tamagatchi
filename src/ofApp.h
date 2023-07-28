@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
         void calculateTadpoleSize();
         void determineTadpoleColourFromHunger();
         void drawLifeSpanBar();
+        void checkifTadpoleIsDead();
     
         // Variables for the tadpole drawing
         float tadPoleOriginX;
