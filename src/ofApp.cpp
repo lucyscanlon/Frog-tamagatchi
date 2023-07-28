@@ -14,6 +14,8 @@ void ofApp::setup(){
     
     // load the font for the status bars
     secondFont.load("SecondFont.ttf", 30);
+    smallerFont.load("SecondFont.ttf", 24);
+    smallestFont.load("SecondFont.ttf", 12);
     
     // set the initial value of the variable which decreases the status bars
     statusBarHeight = -38;
@@ -31,7 +33,9 @@ void ofApp::setup(){
 
     lifespanBarLength = 0;
     
-    isTadpoleDead = false;
+    isTadpoleDead = true;
+    
+    daysLived = 0;
    
     
 
@@ -66,6 +70,7 @@ void ofApp::update(){
         if (lifespanBarLength < 600) {
            if ((ofGetFrameNum() % 100) == 0) {
                lifespanBarLength = lifespanBarLength + 20;
+               daysLived = lifespanBarLength / 20;
            }
        }
     }
@@ -103,6 +108,9 @@ void ofApp::draw(){
     // if the tadpole is alive
     if(isTadpoleDead == false) {
         drawStatusBars();
+    } else {
+        // if the tadpole is dead
+        drawDeadText();
     }
     
     drawLifeSpanBar();
@@ -618,4 +626,21 @@ void ofApp::checkifTadpoleIsDead() {
     if (loveStatusBarHeight == 0) {
         isTadpoleDead = true;
     }
+}
+
+void ofApp::drawDeadText() {
+    
+    // convert the number of days lived, which is determined from the length
+    // of the lifespan bar, to a string so it can be displayed
+    string numberOfDaysLived = to_string(daysLived);
+    ofSetColor(53, 53, 53, 200);
+    smallerFont.drawString("Game over", 160, 310);
+    
+    smallestFont.drawString("Unfortunately you didn't look after", 90, 350);
+    smallestFont.drawString("your tadpole well enough", 135, 375);
+    smallestFont.drawString("and it has died", 190, 400);
+    
+    
+    smallestFont.drawString("Your tadpole lived for: ", 155, 480);
+    smallerFont.drawString(numberOfDaysLived + " days", 200, 540);
 }
