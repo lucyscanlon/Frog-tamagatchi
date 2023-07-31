@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "Frog.hpp"
+#include "Tadpole.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -21,24 +23,13 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-    
-        void drawTadpole();
         void drawWaterGlass();
         void drawStatusBars();
         void calculateStatusBarHeight();
-        void calculateTadpoleSize();
-        void determineTadpoleColourFromHunger();
         void drawLifeSpanBar();
         void checkifTadpoleIsDead();
         void drawDeadText();
         void drawOpenScreenOfGame();
-  
-    
-        // Variables for the tadpole drawing
-        float tadPoleOriginX;
-        float tadPoleOriginY;
-        int tadpoleAnimatedTailStage;
-        bool tailReverseAnimation;
     
         // variables to draw the water glass
         float waterGlassOriginX;
@@ -75,6 +66,12 @@ class ofApp : public ofBaseApp{
     
         int stageOfGame;
         ofImage openingScreenBackground;
+    
+    
+        //frog class
+        Frog gameFrog;
+    
+        Tadpole gameTadpole;
     
 
     
