@@ -44,9 +44,6 @@ void Tadpole::update(){
     
 }
 
-void Tadpole::setState(float state) {
-    
-}
 
 void Tadpole::determineTadpoleDead(bool tadpoledeadornot) {
     tadpoleDead = tadpoledeadornot;

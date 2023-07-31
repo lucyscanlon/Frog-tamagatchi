@@ -4,6 +4,7 @@
 #include "ofxGui.h"
 #include "Frog.hpp"
 #include "Tadpole.hpp"
+#include "WaterGlass.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -23,17 +24,12 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-        void drawWaterGlass();
         void drawStatusBars();
         void calculateStatusBarHeight();
         void drawLifeSpanBar();
         void checkifTadpoleIsDead();
         void drawDeadText();
         void drawOpenScreenOfGame();
-    
-        // variables to draw the water glass
-        float waterGlassOriginX;
-        float waterGlassOriginY;
     
         // Variables for the status bars
         float statusBarsOriginX;
@@ -67,11 +63,11 @@ class ofApp : public ofBaseApp{
         int stageOfGame;
         ofImage openingScreenBackground;
     
-    
         //frog class
         Frog gameFrog;
     
         Tadpole gameTadpole;
+        WaterGlass gameGlass;
     
 
     

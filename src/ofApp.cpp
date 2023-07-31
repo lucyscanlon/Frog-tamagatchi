@@ -40,8 +40,9 @@ void ofApp::setup(){
     
     // set up the positioning of the tadpole using the class
     gameTadpole.setPosition(650, 500);
+    gameGlass.setPosition(540, 280);
     
-    
+
 
 }
 
@@ -110,12 +111,18 @@ void ofApp::draw(){
             drawDeadText();
         }
         
+        // draw life span bar
         drawLifeSpanBar();
+        
+        // set the values and draw the tadpole
         gameTadpole.determineTadpoleDead(isTadpoleDead);
         gameTadpole.determineLoveStatusBarHeight(loveStatusBarHeight);
         gameTadpole.determineColoursOfTadpole(hungerStatusBarHeight);
         gameTadpole.draw();
-        drawWaterGlass();
+        
+        // set the values and draw the waterglass
+        gameGlass.determineCleanlinessLevel(cleanlinessStatusBarHeight);
+        gameGlass.draw();
         
     
     } else if (stageOfGame == 3) {
@@ -135,29 +142,32 @@ void ofApp::keyPressed(int key){
         }
         
     } else if (stageOfGame == 1) {
-        if(key == '1') {
-            hungerStatusBarDecrease = hungerStatusBarDecrease - 38;
-            if (hungerStatusBarHeight < 380) {
-                hungerPressed++;
-                hungerStatusBarHeight = hungerStatusBarHeight + 38;
+        if(isTadpoleDead == false) {
+            if(key == '1') {
+                hungerStatusBarDecrease = hungerStatusBarDecrease - 38;
+                if (hungerStatusBarHeight < 380) {
+                    hungerPressed++;
+                    hungerStatusBarHeight = hungerStatusBarHeight + 38;
+                }
+            }
+            
+            if (key == '2') {
+                cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease - 38;
+                if (cleanlinessStatusBarHeight < 380) {
+                    cleanlinessPressed++;
+                    cleanlinessStatusBarHeight = cleanlinessStatusBarHeight + 38;
+                }
+            }
+            
+            if(key == '3') {
+                loveStatusBarDecrease = loveStatusBarDecrease - 38;
+                if (loveStatusBarHeight < 380) {
+                    lovePressed++;
+                    loveStatusBarHeight = loveStatusBarHeight + 38;
+                }
             }
         }
         
-        if (key == '2') {
-            cleanlinessStatusBarDecrease = cleanlinessStatusBarDecrease - 38;
-            if (cleanlinessStatusBarHeight < 380) {
-                cleanlinessPressed++;
-                cleanlinessStatusBarHeight = cleanlinessStatusBarHeight + 38;
-            }
-        }
-        
-        if(key == '3') {
-            loveStatusBarDecrease = loveStatusBarDecrease - 38;
-            if (loveStatusBarHeight < 380) {
-                lovePressed++;
-                loveStatusBarHeight = loveStatusBarHeight + 38;
-            }
-        }
     }
     
 
@@ -213,72 +223,6 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
-
-void ofApp::drawWaterGlass() {
-    waterGlassOriginX = 540;
-    waterGlassOriginY = 280;
-    
-    if ((cleanlinessStatusBarHeight < 400) && (cleanlinessStatusBarHeight > 286)) {
-        // water in the water glass
-        ofSetColor(82, 212, 255, 70);
-        ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
-        
-        // water reflections on the water glass
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(waterGlassOriginX + 300, waterGlassOriginY + 40, 10, 110);
-        ofDrawRectangle(waterGlassOriginX + 40, waterGlassOriginY + 250, 10, 70);
-        
-        // sparkles
-        ofSetColor(255);
-        ofDrawRectangle(waterGlassOriginX + 100, waterGlassOriginY + 100, 12, 6);
-        ofDrawRectangle(waterGlassOriginX + 80, waterGlassOriginY + 100, 12, 6);
-        ofDrawRectangle(waterGlassOriginX + 93, waterGlassOriginY + 106, 6, 12);
-        ofDrawRectangle(waterGlassOriginX + 93, waterGlassOriginY + 87 , 6, 12);
-        
-        ofDrawRectangle(waterGlassOriginX + 300, waterGlassOriginY + 300, 12, 6);
-        ofDrawRectangle(waterGlassOriginX + 280, waterGlassOriginY + 300, 12, 6);
-        ofDrawRectangle(waterGlassOriginX + 293, waterGlassOriginY + 306, 6, 12);
-        ofDrawRectangle(waterGlassOriginX + 293, waterGlassOriginY + 287 , 6, 12);
-    } else if ((cleanlinessStatusBarHeight < 286) && (cleanlinessStatusBarHeight > 210)) {
-        // water in the water glass
-        ofSetColor(82, 212, 255, 70);
-        ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
-        
-        // water reflections on the water glass
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(waterGlassOriginX + 300, waterGlassOriginY + 40, 10, 110);
-        ofDrawRectangle(waterGlassOriginX + 40, waterGlassOriginY + 250, 10, 70);
-    } else if ((cleanlinessStatusBarHeight < 210) && (cleanlinessStatusBarHeight > 96)) {
-        // water in the water glass
-        ofSetColor(82, 212, 255, 70);
-        ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
-        ofSetColor(165, 126, 15, 30);
-        ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
-        
-        // water reflections on the water glass
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(waterGlassOriginX + 300, waterGlassOriginY + 40, 10, 110);
-        ofDrawRectangle(waterGlassOriginX + 40, waterGlassOriginY + 250, 10, 70);
-    } else if (cleanlinessStatusBarHeight < 96) {
-        // water in the water glass
-        ofSetColor(82, 212, 255, 70);
-        ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
-        ofSetColor(165, 126, 15, 80);
-        ofDrawRectangle(waterGlassOriginX, waterGlassOriginY, 350, 350);
-        
-        // water reflections on the water glass
-        ofSetColor(255, 255, 255, 200);
-        ofDrawRectangle(waterGlassOriginX + 300, waterGlassOriginY + 40, 10, 110);
-        ofDrawRectangle(waterGlassOriginX + 40, waterGlassOriginY + 250, 10, 70);
-    }
-    
-    // outline of the water glass
-    ofSetColor(129, 62, 1, 60);
-    ofDrawRectangle(waterGlassOriginX - 10, waterGlassOriginY - 40, 10, 390);
-    ofDrawRectangle(waterGlassOriginX - 10, waterGlassOriginY + 350, 370, 10);
-    ofDrawRectangle(waterGlassOriginX + 350, waterGlassOriginY - 40, 10, 390);
-    
-}
 
 void ofApp::drawStatusBars() {
     statusBarsOriginX = 138;

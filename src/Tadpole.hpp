@@ -37,8 +37,6 @@ class Tadpole{
         void draw();
     
         void setPosition(float x, float y);
-    
-        void setState(float state);
 
         void determineTadpoleDead(bool t);
     
