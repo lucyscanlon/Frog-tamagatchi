@@ -4,6 +4,7 @@ using namespace std;
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    
     // tadpole animation
     tadpoleAnimatedTailStage = 50;
     
@@ -38,6 +39,9 @@ void ofApp::setup(){
     daysLived = 0;
    
     stageOfGame = 0;
+    
+    openingScreenBackground.load("openingscreenbackground2.jpg");
+    
     
 
 }
@@ -108,6 +112,8 @@ void ofApp::draw(){
     
     // if the game is at stage one, display the tadpole game
     if (stageOfGame == 0) {
+        ofSetColor(255);
+        openingScreenBackground.draw(0, 0, ofGetWidth(), ofGetHeight());
         drawOpenScreenOfGame();
     } else if (stageOfGame == 1) {
         calculateStatusBarHeight();
@@ -658,21 +664,23 @@ void ofApp::drawDeadText() {
 }
 
 void ofApp::drawOpenScreenOfGame() {
-    ofSetColor(138, 191, 73, 200);
-    secondFont.drawString("Welcome to Tadpole", 230, 150);
-    secondFont.drawString("Tamagotchi", 340, 200);
+    ofSetColor(119, 144, 86, 200);
+    secondFont.drawString("Welcome to Tadpole", 250, 190);
+    secondFont.drawString("Tamagotchi", 360, 230);
     
     ofSetColor(53, 53, 53, 150);
-    smallestFont.drawString("We need your help! The local pond has become", 250, 270);
-    smallestFont.drawString("overgrown with tadpoles. We are giving a tadpole", 225, 295);
-    smallestFont.drawString("to each person in town to look after. Once they grow", 210, 320);
-    smallestFont.drawString("and become frogs they can be transported to the", 235, 345);
-    smallestFont.drawString("new pond across town.", 370, 370);
+    smallestFont.drawString("We need your help! The local pond has become", 270, 300);
+    smallestFont.drawString("overgrown with tadpoles. We are giving a tadpole", 235, 325);
+    smallestFont.drawString("to each person in town to look after. Once they grow", 230, 350);
+    smallestFont.drawString("and become frogs they can be transported to the", 255, 375);
+    smallestFont.drawString("new pond across town.", 390, 400);
     
-    smallestFont.drawString("Tadpoles need lots of love and care to stay alive.", 230, 425);
-    smallestFont.drawString("They also need to be fed and their water needs", 250, 450);
-    smallestFont.drawString("to be clean. Best of luck!", 350, 475);
+    smallestFont.drawString("Tadpoles need lots of love and care to stay alive.", 250, 455);
+    smallestFont.drawString("They also need to be fed and their water needs", 270, 480);
+    smallestFont.drawString("to be clean. Best of luck!", 370, 505);
     
-    ofSetColor(138, 191, 73, 200);
-    smallerFont.drawString("Press enter to start", 285, 610);
+    ofSetColor(119, 144, 86, 200);
+    smallerFont.drawString("Press enter to start", 305, 600);
 }
+
+

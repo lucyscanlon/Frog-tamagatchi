@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -31,6 +32,7 @@ class ofApp : public ofBaseApp{
         void checkifTadpoleIsDead();
         void drawDeadText();
         void drawOpenScreenOfGame();
+  
     
         // Variables for the tadpole drawing
         float tadPoleOriginX;
@@ -72,6 +74,9 @@ class ofApp : public ofBaseApp{
         int daysLived;
     
         int stageOfGame;
+        ofImage openingScreenBackground;
+    
+
     
         
 };
