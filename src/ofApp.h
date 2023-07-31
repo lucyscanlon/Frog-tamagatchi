@@ -62,14 +62,11 @@ class ofApp : public ofBaseApp{
     
         int stageOfGame;
         ofImage openingScreenBackground;
-    
-        //frog class
-        Frog gameFrog;
-    
+        
+        // classes
         Tadpole gameTadpole;
         WaterGlass gameGlass;
     
-
-    
+        Frog gameFrog;
         
 };

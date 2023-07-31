@@ -17,8 +17,6 @@ class Frog{
     float frogXPos;
     float frogYPos;
     
-    float frogState;
-    
     Frog();
         ~Frog();
     
@@ -27,8 +25,6 @@ class Frog{
         void draw();
     
         void setPosition(float x, float y);
-    
-        void setState(float state);
     
     private:
 

@@ -31,16 +31,17 @@ void ofApp::setup(){
     
     daysLived = 0;
    
-    stageOfGame = 0;
+    stageOfGame = 3;
     
     openingScreenBackground.load("openingscreenbackground2.jpg");
     
     gameFrog.setPosition(380, 250);
-    gameFrog.setState(2);
     
     // set up the positioning of the tadpole using the class
     gameTadpole.setPosition(650, 500);
     gameGlass.setPosition(540, 280);
+    
+    gameFrog.setPosition(200, 200);
     
 
 
@@ -126,8 +127,13 @@ void ofApp::draw(){
         
     
     } else if (stageOfGame == 3) {
-        
+        ofPushMatrix();
+        ofScale(1.5);
+        gameFrog.draw();
+        ofPopMatrix();
     }
+    
+   
  
 
 }
@@ -283,7 +289,7 @@ void ofApp::calculateStatusBarHeight() {
     
     // uses modulo to decrease the status bars over time
     if(isTadpoleDead == false) {
-        if ((ofGetFrameNum() % 100) == 0) {
+        if ((ofGetFrameNum() % 80) == 0) {
             // this makes sure the bars stop decreasing once they hit zero. it also uses
             // the amount the user has pressed the button to increase the stautus bar.
             if (statusBarHeight < (380 + (hungerPressed * 38))) {
