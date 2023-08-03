@@ -32,7 +32,7 @@ void Frog::update(){
 void Frog::draw(){
     
     
-    ofSetColor(76, 183, 76);
+    ofSetColor(116, 182, 114);
     ofDrawRectangle(frogXPos, frogYPos + 10, 40, 20);
     ofDrawRectangle(frogXPos + 90, frogYPos + 10, 40, 20);
     ofDrawRectangle(frogXPos, frogYPos + 30, 130, 10);
@@ -52,7 +52,7 @@ void Frog::draw(){
     ofDrawRectangle(frogXPos + 130, frogYPos + 150, 10, 40);
     
     
-    ofSetColor(41);
+    ofSetColor(81, 121, 87);
     // dark outline of the frog
     ofDrawRectangle(frogXPos, frogYPos, 40, 10);
     ofDrawRectangle(frogXPos + 90, frogYPos, 40, 10);

@@ -10,6 +10,7 @@ void ofApp::setup(){
     secondFont.load("SecondFont.ttf", 30);
     smallerFont.load("SecondFont.ttf", 24);
     smallestFont.load("SecondFont.ttf", 12);
+    tinyFont.load("SecondFont.ttf", 9);
     
     // set the initial value of the variable which decreases the status bars
     statusBarHeight = -38;
@@ -31,7 +32,7 @@ void ofApp::setup(){
     
     daysLived = 0;
    
-    stageOfGame = 3;
+    stageOfGame = 0;
     
     openingScreenBackground.load("openingscreenbackground2.jpg");
     
@@ -41,9 +42,15 @@ void ofApp::setup(){
     gameTadpole.setPosition(650, 500);
     gameGlass.setPosition(540, 280);
     
-    gameFrog.setPosition(200, 200);
-    gamePond.setPosition(400, 400);
+    gameFrog.setPosition(1200, 980);
+    gamePond.setPosition(400, 500);
     
+    // set the initial score stats
+    gamesPlayedStat = 0;
+    TadpolesSavedStat = 0;
+    HighestLifespan = 0;
+    
+    addNewScore = true;
 
 
 }
@@ -64,6 +71,12 @@ void ofApp::update(){
                if ((ofGetFrameNum() % 100) == 0) {
                    lifespanBarLength = lifespanBarLength + 20;
                    daysLived = lifespanBarLength / 20;
+                   
+                   if (lifespanBarLength == 600) {
+                       stageOfGame = 3;
+                       increaseStats();
+                       
+                   }
                }
            }
         }
@@ -104,6 +117,7 @@ void ofApp::draw(){
         drawOpenScreenOfGame();
     } else if (stageOfGame == 1) {
         calculateStatusBarHeight();
+        drawStatsBar();
         
         // if the tadpole is alive
         if(isTadpoleDead == false) {
@@ -128,11 +142,15 @@ void ofApp::draw(){
         
     
     } else if (stageOfGame == 3) {
-        ofPushMatrix();
-        ofScale(1.5);
-        //gameFrog.draw();
-        ofPopMatrix();
+        drawEndingScreen();
         gamePond.draw();
+        
+        ofPushMatrix();
+            ofScale(0.5);
+            gameFrog.draw();
+        ofPopMatrix();
+        
+        drawStatsBar();
     }
     
    
@@ -174,8 +192,21 @@ void ofApp::keyPressed(int key){
                     loveStatusBarHeight = loveStatusBarHeight + 38;
                 }
             }
+            
         }
         
+        if (isTadpoleDead == true && key == 13) {
+            stageOfGame = 0;
+            resetStats();
+         
+        }
+        
+    } else if (stageOfGame == 3) {
+        if(key == 13) {
+            stageOfGame = 0;
+            resetStats();
+           
+        }
     }
     
 
@@ -337,14 +368,17 @@ void ofApp::drawLifeSpanBar() {
 void ofApp::checkifTadpoleIsDead() {
     if (cleanlinessStatusBarHeight == 0) {
         isTadpoleDead = true;
+        increaseStats();
     }
     
     if (hungerStatusBarHeight == 0) {
         isTadpoleDead = true;
+        increaseStats();
     }
     
     if (loveStatusBarHeight == 0) {
         isTadpoleDead = true;
+        increaseStats();
     }
 }
 
@@ -363,6 +397,8 @@ void ofApp::drawDeadText() {
     
     smallestFont.drawString("Your tadpole lived for: ", 145, 480);
     smallerFont.drawString(numberOfDaysLived + " days", 200, 540);
+    
+    smallestFont.drawString("Press enter to try again", 140, 600);
 }
 
 void ofApp::drawOpenScreenOfGame() {
@@ -383,6 +419,80 @@ void ofApp::drawOpenScreenOfGame() {
     
     ofSetColor(119, 144, 86, 200);
     smallerFont.drawString("Press enter to start", 305, 600);
+}
+
+void ofApp::drawEndingScreen() {
+    ofSetColor(119, 144, 86, 200);
+    secondFont.drawString("Congratulations you", 220, 150);
+    secondFont.drawString("saved your Tadpole!", 240, 200);
+    
+    ofSetColor(53, 53, 53, 150);
+    smallestFont.drawString("Your Tadpole has transformed into a frog and", 250, 275);
+    smallestFont.drawString("is ready to move to the new pond. Say goodbye!", 250, 300);
+    smallestFont.drawString("Press enter to play again and see how many Tadpoles", 220, 325);
+    smallestFont.drawString("you can save", 435, 350);
+    
+    string NumberofTadpolesSavedString = to_string(TadpolesSavedStat);
+    smallestFont.drawString("Number of Tadpoles saved: " + NumberofTadpolesSavedString , 340, 420);
+    
+}
+
+void ofApp::drawStatsBar() {
+    ofSetColor(194, 147, 107);
+    ofDrawRectangle(0, ofGetHeight() - 40, ofGetWidth(), 40);
+    
+    // convert the int values of the scores to strings
+    ofSetColor(255);
+    string gamesPlayedStatString = to_string(gamesPlayedStat);
+    string TadpolesSavedString = to_string(TadpolesSavedStat);
+    string highestlifespanString = to_string(HighestLifespan);
+    
+    // display the scores
+    tinyFont.drawString("Games Played: " + gamesPlayedStatString, 20, ofGetHeight() - 15);
+    tinyFont.drawString("Tadpoles Saved: " + TadpolesSavedString, ofGetWidth() - 170, ofGetHeight() - 15);
+    tinyFont.drawString("Longest Lifespan: " + highestlifespanString, (ofGetWidth() / 2) - 70, ofGetHeight() - 15);
+}
+
+
+void ofApp::increaseStats() {
+    
+    if (addNewScore == true && isTadpoleDead == true) {
+        gamesPlayedStat = gamesPlayedStat + 1;
+        addNewScore = false;
+    } else if (addNewScore == true && isTadpoleDead == false) {
+        gamesPlayedStat = gamesPlayedStat + 1;
+        TadpolesSavedStat = TadpolesSavedStat + 1;
+        addNewScore = false;
+    }
+    
+    
+    if(daysLived > HighestLifespan) {
+        HighestLifespan = daysLived;
+    }
+}
+
+void ofApp::resetStats() {
+    // set the initial value of the variable which decreases the status bars
+    statusBarHeight = -38;
+    hungerStatusBarDecrease = -38;
+    cleanlinessStatusBarDecrease = -38;
+    loveStatusBarDecrease = -38;
+    
+    hungerPressed = 0;
+    cleanlinessPressed = 0;
+    lovePressed = 0;
+    
+    hungerStatusBarHeight = 380;
+    cleanlinessStatusBarHeight = 380;
+    loveStatusBarHeight = 380;
+
+    lifespanBarLength = 0;
+    
+    isTadpoleDead = false;
+    
+    daysLived = 0;
+    
+    addNewScore = true;
 }
 
 

@@ -31,6 +31,10 @@ class ofApp : public ofBaseApp{
         void checkifTadpoleIsDead();
         void drawDeadText();
         void drawOpenScreenOfGame();
+        void drawEndingScreen();
+        void drawStatsBar();
+        void increaseStats();
+        void resetStats();
     
         // Variables for the status bars
         float statusBarsOriginX;
@@ -53,6 +57,7 @@ class ofApp : public ofBaseApp{
         ofTrueTypeFont secondFont;
         ofTrueTypeFont smallerFont;
         ofTrueTypeFont smallestFont;
+        ofTrueTypeFont tinyFont;
     
         // variable that controls the length of the lifespan bar
         float lifespanBarLength;
@@ -71,5 +76,12 @@ class ofApp : public ofBaseApp{
         Frog gameFrog;
     
         Pond gamePond;
+    
+        // scores
+        int gamesPlayedStat;
+        int TadpolesSavedStat;
+        int HighestLifespan;
+    
+        bool addNewScore;
         
 };
