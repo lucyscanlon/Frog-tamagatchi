@@ -5,51 +5,55 @@ using namespace std;
 void ofApp::setup(){
     
     
-    
-    // load the font for the status bars
+    // load the fonts
     secondFont.load("SecondFont.ttf", 30);
     smallerFont.load("SecondFont.ttf", 24);
     smallestFont.load("SecondFont.ttf", 12);
     tinyFont.load("SecondFont.ttf", 9);
     
-    // set the initial value of the variable which decreases the status bars
+    // set the initial values for the status bars
     statusBarHeight = -38;
     hungerStatusBarDecrease = -38;
     cleanlinessStatusBarDecrease = -38;
     loveStatusBarDecrease = -38;
-    
     hungerPressed = 0;
     cleanlinessPressed = 0;
     lovePressed = 0;
-    
     hungerStatusBarHeight = 380;
     cleanlinessStatusBarHeight = 380;
     loveStatusBarHeight = 380;
 
+    // set the initial value of the lifespan bar to 0
     lifespanBarLength = 0;
     
+    // this variables decides whether the tadpole is dead or alive
+    // set it to alive at the start of the game
     isTadpoleDead = false;
     
+    // this values holds the number of days the tadpole has been alive
+    // this amount is determined from how far into the lifespan it is
+    // set it to 0 at the start of the game
     daysLived = 0;
    
+    // stage of game is 0 - this is the opening screen
     stageOfGame = 0;
     
+    // load the image for the background of the opening screen
     openingScreenBackground.load("openingscreenbackground2.jpg");
     
-    gameFrog.setPosition(380, 250);
-    
-    // set up the positioning of the tadpole using the class
+    // set the positions for each class e.g. frog, tadpole, glass and pond
     gameTadpole.setPosition(650, 500);
     gameGlass.setPosition(540, 280);
-    
     gameFrog.setPosition(1200, 980);
     gamePond.setPosition(400, 500);
     
-    // set the initial score stats
+    // set the initial score stats to 0 at the start of the game
     gamesPlayedStat = 0;
     TadpolesSavedStat = 0;
     HighestLifespan = 0;
     
+    // this boolean decides whether its time to add a new score or not
+    // this insures each game is only counted once in the stats
     addNewScore = true;
 
 
@@ -58,22 +62,25 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    
+    // during the game, this calls on the class to continuously animate the tadpole
     if (stageOfGame == 1) {
         if(isTadpoleDead == false) {
             gameTadpole.update();
         }
         
         
-        // increase the lifespan bar as time increases
+        // increase the lifespan bar as time increases.
+        // Stop when it reaches 600 which is the completion of the game
         if (isTadpoleDead == false) {
             if (lifespanBarLength < 600) {
                if ((ofGetFrameNum() % 100) == 0) {
                    lifespanBarLength = lifespanBarLength + 20;
                    daysLived = lifespanBarLength / 20;
                    
+                   // if the game has been completed move to the ending screen
                    if (lifespanBarLength == 600) {
                        stageOfGame = 3;
+                       // increase the stats to show game has been completed
                        increaseStats();
                        
                    }
@@ -81,6 +88,7 @@ void ofApp::update(){
            }
         }
         
+        // check if the tadpole has died due to any of the status bars reaching zero
         checkifTadpoleIsDead();
     }
     
@@ -92,6 +100,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    // set the background colour
     ofBackground(244, 217, 191);
     
     // if the stats get too low add a red overlay to the screen to warn the player
@@ -105,68 +114,69 @@ void ofApp::draw(){
         ofSetColor(255, 104, 104, 30);
         ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     }
-    // Show mouse coordinates onto the screen
-    string pixelCoords = "("+to_string(mouseX)+", "+to_string(mouseY)+")";
-    ofSetColor(255,0,255);     // set text color
-    ofDrawBitmapString(pixelCoords, mouseX, mouseY);
     
-    // if the game is at stage one, display the tadpole game
+    // This controls what is displayed as the player moves through each stage of the game
+    // stage 0 - the opening screen
     if (stageOfGame == 0) {
         ofSetColor(255);
+        // display the opening screen background
         openingScreenBackground.draw(0, 0, ofGetWidth(), ofGetHeight());
+        // call the function to draw the text display of the opening screen
         drawOpenScreenOfGame();
     } else if (stageOfGame == 1) {
+        // stage 1 - the tadpole game
+        // call the function to calculate the status bars
         calculateStatusBarHeight();
+        // draw the statistics bar at the bottom of the screen
         drawStatsBar();
-        
-        // if the tadpole is alive
+        // if the tadpole is alive - draw the stats bars
         if(isTadpoleDead == false) {
             drawStatusBars();
         } else {
-            // if the tadpole is dead
+            // if the tadpole is dead - call the function to draw the text for the
+            // tadpole being dead as its the end of the game
             drawDeadText();
         }
-        
         // draw life span bar
         drawLifeSpanBar();
-        
         // set the values and draw the tadpole
         gameTadpole.determineTadpoleDead(isTadpoleDead);
         gameTadpole.determineLoveStatusBarHeight(loveStatusBarHeight);
         gameTadpole.determineColoursOfTadpole(hungerStatusBarHeight);
         gameTadpole.draw();
-        
         // set the values and draw the waterglass
         gameGlass.determineCleanlinessLevel(cleanlinessStatusBarHeight);
         gameGlass.draw();
-        
-    
+        ofSetColor(194, 147, 107);
+        smallestFont.drawString("Press 1, 2 and 3 to feed, clean and love your tadpole", 210, 200);
     } else if (stageOfGame == 3) {
+        // stage 3 - the ending screen, if the player has looked after their tadpole enough to
+        // complete the game.
+        // call the function to draw the ending screen text
         drawEndingScreen();
+        // draw the pond
         gamePond.draw();
-        
+        // draw the frog and scale it down so it can sit on the lily pad on the pond
         ofPushMatrix();
             ofScale(0.5);
             gameFrog.draw();
         ofPopMatrix();
-        
+        // draw the statistics bar at the bottom of the screen
         drawStatsBar();
     }
-    
-   
- 
-
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
-    cout << key << endl;
+    // in the opening screen, if the player presses enter, start the game (move to stage 1)
     if(stageOfGame == 0) {
         if(key == 13) {
             stageOfGame = 1;
         }
         
+        // if the game is in stage 1, listen for the players to press 1, 2, 3
+        // these key presses increase the status bars
     } else if (stageOfGame == 1) {
         if(isTadpoleDead == false) {
             if(key == '1') {
@@ -195,15 +205,20 @@ void ofApp::keyPressed(int key){
             
         }
         
+        // if the tadpole has died then wait for the user to press enter to restart the game
         if (isTadpoleDead == true && key == 13) {
             stageOfGame = 0;
+            // reset the starting statistics to reset the game
             resetStats();
          
         }
         
+        // if the tadpole has become a frog, wait for the user to press enter to
+        // play again
     } else if (stageOfGame == 3) {
         if(key == 13) {
             stageOfGame = 0;
+            // reset the game and the statistics
             resetStats();
            
         }
@@ -262,8 +277,8 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
-
 void ofApp::drawStatusBars() {
+    // this function draws the status bars for the tadpole
     statusBarsOriginX = 138;
     statusBarsOriginY = 250;
     
@@ -366,6 +381,9 @@ void ofApp::drawLifeSpanBar() {
 }
 
 void ofApp::checkifTadpoleIsDead() {
+    // this function checks if any of the status bars have hit 0 which means
+    // the tadpole has died
+    // if it has died increase the game stats
     if (cleanlinessStatusBarHeight == 0) {
         isTadpoleDead = true;
         increaseStats();
@@ -383,7 +401,7 @@ void ofApp::checkifTadpoleIsDead() {
 }
 
 void ofApp::drawDeadText() {
-    
+    // draw the text which displays when the tadpole had died
     // convert the number of days lived, which is determined from the length
     // of the lifespan bar, to a string so it can be displayed
     string numberOfDaysLived = to_string(daysLived);
@@ -402,6 +420,8 @@ void ofApp::drawDeadText() {
 }
 
 void ofApp::drawOpenScreenOfGame() {
+    
+    // the text for the opening screen of the game
     ofSetColor(119, 144, 86, 200);
     secondFont.drawString("Welcome to Tadpole", 250, 190);
     secondFont.drawString("Tamagotchi", 360, 230);
@@ -422,6 +442,8 @@ void ofApp::drawOpenScreenOfGame() {
 }
 
 void ofApp::drawEndingScreen() {
+    
+    // the text for the ending screen of the game
     ofSetColor(119, 144, 86, 200);
     secondFont.drawString("Congratulations you", 220, 150);
     secondFont.drawString("saved your Tadpole!", 240, 200);
@@ -438,6 +460,7 @@ void ofApp::drawEndingScreen() {
 }
 
 void ofApp::drawStatsBar() {
+    // this function draws the statistics bar at the bottom of the screen
     ofSetColor(194, 147, 107);
     ofDrawRectangle(0, ofGetHeight() - 40, ofGetWidth(), 40);
     
@@ -455,9 +478,11 @@ void ofApp::drawStatsBar() {
 
 
 void ofApp::increaseStats() {
-    
+    // this function increases the relevant statistics at the end of the each game
     if (addNewScore == true && isTadpoleDead == true) {
         gamesPlayedStat = gamesPlayedStat + 1;
+        // this stops the stats from continuously increasing due to the
+        // function being called repetitively
         addNewScore = false;
     } else if (addNewScore == true && isTadpoleDead == false) {
         gamesPlayedStat = gamesPlayedStat + 1;
@@ -465,13 +490,15 @@ void ofApp::increaseStats() {
         addNewScore = false;
     }
     
-    
+    // if the lifespan of the current tadpole is higher than the lifespan in
+    // the highest score, then the current score replaces this as the new high score
     if(daysLived > HighestLifespan) {
         HighestLifespan = daysLived;
     }
 }
 
 void ofApp::resetStats() {
+    // resets the starting values so the player can start again
     // set the initial value of the variable which decreases the status bars
     statusBarHeight = -38;
     hungerStatusBarDecrease = -38;

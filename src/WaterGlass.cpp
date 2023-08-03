@@ -33,6 +33,7 @@ void WaterGlass::determineCleanlinessLevel(float cleanlinessStatus) {
 
 void WaterGlass::draw(){
     
+    // this draws the glass depending on the cleanliness status bar
     if ((cleanlinessStatusBarHeight < 400) && (cleanlinessStatusBarHeight > 286)) {
         // water in the water glass
         ofSetColor(82, 212, 255, 70);

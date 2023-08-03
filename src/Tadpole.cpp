@@ -9,8 +9,6 @@
 
 Tadpole::Tadpole(){
     
-   
-    
 }
 
 Tadpole::~Tadpole() {
@@ -18,6 +16,7 @@ Tadpole::~Tadpole() {
 }
 
 void Tadpole::setPosition(float x, float y) {
+    // set its position
     tadPoleOriginX = x;
     tadPoleOriginY = y;
     
@@ -25,6 +24,7 @@ void Tadpole::setPosition(float x, float y) {
 
 void Tadpole::update(){
     
+    // this animates the tadpoles tail
     if (tailAnimationReversed == true) {
         tailAnimationStageClass = tailAnimationStageClass - 2;
         tadPoleOriginY = tadPoleOriginY - 0.09;
@@ -55,7 +55,9 @@ void Tadpole::determineLoveStatusBarHeight(float loveStatus) {
 
 
 void Tadpole::determineColoursOfTadpole(float hungerStatus) {
-    
+    // this function deterlines the colour of the tadpole, this changes over time as
+    // the hunger status bar decreases.
+    // only affects alpha value.
     tadpoleHungerBarStatus = hungerStatus;
     
     tadpoleDarkGreen.r = 138;
@@ -91,7 +93,6 @@ void Tadpole::determineColoursOfTadpole(float hungerStatus) {
 
 void Tadpole::draw(){
     
-    //ofSetColor(tadpoleDarkColour);
     // draw tadpoles body
     ofSetColor(tadpoleDarkGreen);
     ofDrawRectangle(tadPoleOriginX, tadPoleOriginY - 60, 20, 120);
