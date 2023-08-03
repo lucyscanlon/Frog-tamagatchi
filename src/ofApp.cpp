@@ -42,6 +42,7 @@ void ofApp::setup(){
     gameGlass.setPosition(540, 280);
     
     gameFrog.setPosition(200, 200);
+    gamePond.setPosition(400, 400);
     
 
 
@@ -129,8 +130,9 @@ void ofApp::draw(){
     } else if (stageOfGame == 3) {
         ofPushMatrix();
         ofScale(1.5);
-        gameFrog.draw();
+        //gameFrog.draw();
         ofPopMatrix();
+        gamePond.draw();
     }
     
    

@@ -5,6 +5,7 @@
 #include "Frog.hpp"
 #include "Tadpole.hpp"
 #include "WaterGlass.hpp"
+#include "Pond.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -68,5 +69,7 @@ class ofApp : public ofBaseApp{
         WaterGlass gameGlass;
     
         Frog gameFrog;
+    
+        Pond gamePond;
         
 };

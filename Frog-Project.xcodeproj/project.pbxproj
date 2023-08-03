@@ -8,15 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
-		3E1EF1C02A783B65001EDCD1 /* Frog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF1BE2A783B65001EDCD1 /* Frog.cpp */; };
-		3E1EF1C32A783F94001EDCD1 /* Tadpole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF1C12A783F94001EDCD1 /* Tadpole.cpp */; };
-		3E1EF1C62A7849D5001EDCD1 /* WaterGlass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF1C42A7849D5001EDCD1 /* WaterGlass.cpp */; };
+		3E1EF1C92A7BDC97001EDCD1 /* Pond.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EF1C72A7BDC97001EDCD1 /* Pond.cpp */; };
 		483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78D67A00EB899FAC09430597 /* ofxLabel.cpp */; };
 		5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C88333E71C9457E441C33474 /* ofxButton.cpp */; };
+		6363E642B74A7EB67DF22F4A /* Tadpole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 813CAD1A3470CB0648BC0834 /* Tadpole.cpp */; };
+		7F58F16E2E85A3BD217ECB92 /* WaterGlass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 701861E51A72AA4A2BF9C948 /* WaterGlass.cpp */; };
 		837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15F2C6477A769C03A56D1401 /* ofxSlider.cpp */; };
 		852E0891794923EE7583C621 /* ofxInputField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44B351490B620D04E1E7C52D /* ofxInputField.cpp */; };
 		853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 181D363B6DD54D1FA6309C43 /* ofxColorPicker.cpp */; };
 		856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9604B925D32EE39065747725 /* ofxBaseGui.cpp */; };
+		8E2E454F7ACDA83CCAFC8C41 /* Frog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C0E82F7031CFC539E2DFB1 /* Frog.cpp */; };
 		B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */; };
 		B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 802251BAF1B35B1D67B32FD0 /* ofxSliderGroup.cpp */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
@@ -43,17 +44,17 @@
 		181D363B6DD54D1FA6309C43 /* ofxColorPicker.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxColorPicker.cpp; path = ../../../addons/ofxGui/src/ofxColorPicker.cpp; sourceTree = SOURCE_ROOT; };
 		1C0DA2561397A7DE0246858B /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiGroup.h; path = ../../../addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
 		2834D88A62CD23F3DE2C47D1 /* ofxButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxButton.h; path = ../../../addons/ofxGui/src/ofxButton.h; sourceTree = SOURCE_ROOT; };
-		3E1EF1BE2A783B65001EDCD1 /* Frog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Frog.cpp; sourceTree = "<group>"; };
-		3E1EF1BF2A783B65001EDCD1 /* Frog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Frog.hpp; sourceTree = "<group>"; };
-		3E1EF1C12A783F94001EDCD1 /* Tadpole.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tadpole.cpp; sourceTree = "<group>"; };
-		3E1EF1C22A783F94001EDCD1 /* Tadpole.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tadpole.hpp; sourceTree = "<group>"; };
-		3E1EF1C42A7849D5001EDCD1 /* WaterGlass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WaterGlass.cpp; sourceTree = "<group>"; };
-		3E1EF1C52A7849D5001EDCD1 /* WaterGlass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaterGlass.hpp; sourceTree = "<group>"; };
+		34C0E82F7031CFC539E2DFB1 /* Frog.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Frog.cpp; path = src/Frog.cpp; sourceTree = SOURCE_ROOT; };
+		3E1EF1C72A7BDC97001EDCD1 /* Pond.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pond.cpp; sourceTree = "<group>"; };
+		3E1EF1C82A7BDC97001EDCD1 /* Pond.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pond.hpp; sourceTree = "<group>"; };
 		44B351490B620D04E1E7C52D /* ofxInputField.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxInputField.cpp; path = ../../../addons/ofxGui/src/ofxInputField.cpp; sourceTree = SOURCE_ROOT; };
 		489B196944B06ADC2A071076 /* ofxColorPicker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxColorPicker.h; path = ../../../addons/ofxGui/src/ofxColorPicker.h; sourceTree = SOURCE_ROOT; };
 		52AFA1F08C420992CAAAE648 /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
+		6492D9D3CA362BC6D72BBEC4 /* WaterGlass.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = WaterGlass.hpp; path = src/WaterGlass.hpp; sourceTree = SOURCE_ROOT; };
+		701861E51A72AA4A2BF9C948 /* WaterGlass.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = WaterGlass.cpp; path = src/WaterGlass.cpp; sourceTree = SOURCE_ROOT; };
 		78D67A00EB899FAC09430597 /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxLabel.cpp; path = ../../../addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
 		802251BAF1B35B1D67B32FD0 /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxSliderGroup.cpp; path = ../../../addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
+		813CAD1A3470CB0648BC0834 /* Tadpole.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Tadpole.cpp; path = src/Tadpole.cpp; sourceTree = SOURCE_ROOT; };
 		87F26B4B24CBD428AD9EEBAA /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxBaseGui.h; path = ../../../addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
 		89449E3044D456F7DE7BEA14 /* ofxPanel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxPanel.h; path = ../../../addons/ofxGui/src/ofxPanel.h; sourceTree = SOURCE_ROOT; };
 		907C5B5E104864A2D3A25745 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxToggle.cpp; path = ../../../addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
@@ -61,8 +62,10 @@
 		AE68B54581BE4A1DAE853180 /* ofxInputField.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxInputField.h; path = ../../../addons/ofxGui/src/ofxInputField.h; sourceTree = SOURCE_ROOT; };
 		B87C60311EC1FE841C1ECD89 /* ofxLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxLabel.h; path = ../../../addons/ofxGui/src/ofxLabel.h; sourceTree = SOURCE_ROOT; };
 		BA274EC7A169D538BD43A5D8 /* ofxGuiUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiUtils.h; path = ../../../addons/ofxGui/src/ofxGuiUtils.h; sourceTree = SOURCE_ROOT; };
+		C5BAFDFBA261393758FA71DE /* Tadpole.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Tadpole.hpp; path = src/Tadpole.hpp; sourceTree = SOURCE_ROOT; };
 		C70D8946940288799E82131E /* ofxSliderGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxSliderGroup.h; path = ../../../addons/ofxGui/src/ofxSliderGroup.h; sourceTree = SOURCE_ROOT; };
 		C88333E71C9457E441C33474 /* ofxButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxButton.cpp; path = ../../../addons/ofxGui/src/ofxButton.cpp; sourceTree = SOURCE_ROOT; };
+		D758EEAC11702BE06FD29661 /* Frog.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Frog.hpp; path = src/Frog.hpp; sourceTree = SOURCE_ROOT; };
 		E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxPanel.cpp; path = ../../../addons/ofxGui/src/ofxPanel.cpp; sourceTree = SOURCE_ROOT; };
 		E42962AC2163EDD300A6A9E2 /* ofCamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ofCamera.cpp; path = ../../../libs/openFrameworks/3d/ofCamera.cpp; sourceTree = SOURCE_ROOT; };
 		E42962AD2163EDD300A6A9E2 /* ofMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofMesh.h; path = ../../../libs/openFrameworks/3d/ofMesh.h; sourceTree = SOURCE_ROOT; };
@@ -612,12 +615,14 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-				3E1EF1BE2A783B65001EDCD1 /* Frog.cpp */,
-				3E1EF1BF2A783B65001EDCD1 /* Frog.hpp */,
-				3E1EF1C12A783F94001EDCD1 /* Tadpole.cpp */,
-				3E1EF1C22A783F94001EDCD1 /* Tadpole.hpp */,
-				3E1EF1C42A7849D5001EDCD1 /* WaterGlass.cpp */,
-				3E1EF1C52A7849D5001EDCD1 /* WaterGlass.hpp */,
+				C5BAFDFBA261393758FA71DE /* Tadpole.hpp */,
+				701861E51A72AA4A2BF9C948 /* WaterGlass.cpp */,
+				34C0E82F7031CFC539E2DFB1 /* Frog.cpp */,
+				D758EEAC11702BE06FD29661 /* Frog.hpp */,
+				6492D9D3CA362BC6D72BBEC4 /* WaterGlass.hpp */,
+				813CAD1A3470CB0648BC0834 /* Tadpole.cpp */,
+				3E1EF1C72A7BDC97001EDCD1 /* Pond.cpp */,
+				3E1EF1C82A7BDC97001EDCD1 /* Pond.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -722,19 +727,20 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				7F58F16E2E85A3BD217ECB92 /* WaterGlass.cpp in Sources */,
+				8E2E454F7ACDA83CCAFC8C41 /* Frog.cpp in Sources */,
+				6363E642B74A7EB67DF22F4A /* Tadpole.cpp in Sources */,
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,
-				3E1EF1C02A783B65001EDCD1 /* Frog.cpp in Sources */,
-				3E1EF1C62A7849D5001EDCD1 /* WaterGlass.cpp in Sources */,
 				5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */,
 				853E0BA2F448076739446874 /* ofxColorPicker.cpp in Sources */,
 				B266578FC55D23BFEBC042E7 /* ofxGuiGroup.cpp in Sources */,
 				852E0891794923EE7583C621 /* ofxInputField.cpp in Sources */,
+				3E1EF1C92A7BDC97001EDCD1 /* Pond.cpp in Sources */,
 				483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */,
 				F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */,
 				837220E80EB56CD44AD27F2A /* ofxSlider.cpp in Sources */,
 				B56FE57CC35806596D38118C /* ofxSliderGroup.cpp in Sources */,
 				1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */,
-				3E1EF1C32A783F94001EDCD1 /* Tadpole.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
